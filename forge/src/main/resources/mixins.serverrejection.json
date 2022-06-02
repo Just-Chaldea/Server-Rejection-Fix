@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.7.10",
+  "package": "gg.chaldea.serene.seasons.rejection.mixin",
+  "refmap": "mixins.serverrejection.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinPacketHandler"
+  ],
+  "client": []
+}

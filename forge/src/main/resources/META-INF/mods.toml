@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+issueTrackerURL="https://github.com/JustChaldea"
+
+[[mods]]
+modId="sereneseasonspatch"
+version="1.0.0"
+displayName="SereneSeasons Server Rejection patch"
+displayURL="https://github.com/JustChaldea"
+credits="JustChaldea"
+authors="JustChaldea"
+description='''
+JustChaldea
+'''

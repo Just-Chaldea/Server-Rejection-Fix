@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+compileJava {
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.16.5'
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+forgeVersion = "1.16.5"
+
+repositories {
+    maven {
+        name = 'spongepowered-repo'
+        url = 'https://repo.spongepowered.org/maven'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.22'
+
+    compile 'org.spongepowered:mixin:0.8.3-SNAPSHOT'
+    compile 'org.spongepowered:mixin:0.8.3-SNAPSHOT:processor'
+
+    implementation fileTree(dir: '../libs', include: ['*.jar'])
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.3-SNAPSHOT:processor'
+}
+
+sourceSets {
+    main {
+        ext.refMap = "mixins.serverrejection.refmap.json"
+    }
+}
+
+mixin {
+    add sourceSets.main, "mixins.serverrejection.refmap.json"
+}
+
+jar {
+    manifest.attributes(
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+            'TweakOrder': 0,
+            'MixinConfigs' : "mixins.serverrejection.json"
+    )
+}
+
+jar.finalizedBy('reobfJar')
+build.finalizedBy('versionedRelease')
